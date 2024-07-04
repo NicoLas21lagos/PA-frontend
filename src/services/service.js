@@ -20,13 +20,14 @@ export const getUsers = async () => {
 // Notas
 
 
-// POST
-export const createNoteForUser = async (newNote) => {
+// faltaria un post de notas
+export const createNota = async (nota) => {
   try {
-    await axios.post(`${API_URL}/notas`, newNote);
+    const response = await axios.post(`${API_URL}/notas`, nota);
+    return response.data;
   } catch (error) {
     console.error("Error al crear la nota", error);
-    alert("Ocurrio un error al registrar la nota");
+    throw new Error("Error al crear la nota");
   }
 };
 

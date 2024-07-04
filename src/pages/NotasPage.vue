@@ -42,7 +42,7 @@
 </template>
 
 <script>
-import { createNoteForUser, deleteNoteById, getNotasUsuario,} from "@/services/service.js";
+import { createNota, deleteNoteById, getNotasUsuario } from "@/services/service.js";
 
 export default {
   data() {
@@ -72,7 +72,21 @@ export default {
     },
     async crearNota() {
       try {
-       
+        const userId = sessionStorage.getItem("userId");
+        if (!userId) {
+          throw new Error("No se encontró el userId en sessionStorage");
+        }
+        const nuevaNota = {
+          titulo: this.nuevaNota.titulo,
+          contenido: this.nuevaNota.contenido,
+          user: {
+            id: userId,
+          },
+        };
+        await createNota(nuevaNota);
+        this.nuevaNota.titulo = "";
+        this.nuevaNota.contenido = "";
+        await this.cargarNotasUsuario();
       } catch (error) {
         console.error("Error al crear la nota", error);
         alert("Ocurrió un error al crear la nota");
@@ -91,5 +105,4 @@ export default {
 };
 </script>
 
-<style>
-</style>
+<style></style>
