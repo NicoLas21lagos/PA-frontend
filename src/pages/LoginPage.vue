@@ -1,6 +1,7 @@
 <template>
 
-  <div class="flex justify-center items-center w-full min-h-screen bg-gray-400">
+  
+  <div class="flex justify-center items-center w-full min-h-screen bg-gray-300 shadow-2xl">
     <div class="flex flex-col w-1/3 justify-center p-4 rounded-md text-black bg-white">
 
       <div class="text-2xl font-bold mb-2 text-[#1e0e4b] text-center">Bienvenido a <span class="text-[#7747ff]">Ecotech
@@ -18,17 +19,18 @@
         <div class="block relative">
           <label for="password"
             class="block text-gray-600 cursor-text text-sm leading-[140%] font-normal mb-2">Contraseña</label>
-          <input type="text" id="password" v-model="form.password"
+          <input type="password" id="password" v-model="form.password"
             class="rounded border border-gray-200 text-sm w-full font-normal leading-[18px] text-black tracking-[0px] appearance-none block h-11 m-0 p-[11px] focus:ring-2 ring-offset-2 ring-gray-900 outline-0">
 
         </div>
 
-        <button @click="login"
+        <button @click="verificarDatos"
           class="bg-[#7747ff] hover:scale-110 hover:bg-violet-700 transition w-max m-auto px-6 py-3 rounded text-white text-sm font-normal">Enviar</button>
 
       </div>
-      <div class="text-sm text-center mt-[1.6rem]">Aun no tienes una cuenta? <a class="text-sm text-[#7747ff]"
-          href="#">¡Regístrate gratis!</a></div>
+      <div class="text-sm text-center mt-[1.6rem]">Aun no tienes una cuenta? 
+        <router-link class="text-sm text-[#7747ff]" to="/register">¡Regístrate gratis!</router-link>
+      </div>
     </div>
   </div>
 
@@ -53,6 +55,20 @@ export default {
     };
   },
   methods: {
+
+    
+    verificarDatos() {
+            try {
+            if (this.form.email && this.form.password) {
+                this.login();
+            } else {
+                alert( "Rellene todos los campos");
+            }
+        } catch (error) {
+            alert("Error al cargar los datos");
+        }
+      },
+
     async login() {
       try {
         const users = await getUsers();

@@ -16,6 +16,15 @@ export const getUsers = async () => {
   }
 };
 
+export const getUserByID = async (userID) => {
+  try {
+      const response = await axios.get(`${API_URL}/users/${userID}`);
+      return response.data;
+  } catch (error) {
+      console.error('Error fetching user by ID:', error);
+      throw error;
+  }
+};
 
 
 export const postCreateUser = async (user) => {
@@ -29,6 +38,15 @@ export const postCreateUser = async (user) => {
   }
 }
 
+export const updateUser = async (userId, userUpdates) => {
+  try {
+      const response = await axios.put(`${API_URL}/users/${userId}/update`, userUpdates);
+      return response.data;
+  } catch (error) {
+      console.error('Error updating user:', error);
+      throw error;
+  }
+};
 
 
 // Notas
@@ -85,5 +103,13 @@ export const getNotasPublicas = async () => {
     console.error('Error al obtener las notas públicas:', error);
     throw new Error('Error al obtener las notas públicas');
   }
+};
+
+
+
+//local storage
+export const userIdLogeado = () => {
+  const userId = sessionStorage.getItem("userId");
+  return userId;
 };
 

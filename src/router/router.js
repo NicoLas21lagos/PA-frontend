@@ -7,6 +7,8 @@ import NotasPage from "@/pages/NotasPage.vue"
 const routes = [
   { path: "/", component: LoginPage },
   { path: "/notas", component: NotasPage },
+  { path: "/register",  component: () => import('../pages/RegisterPage.vue')},
+  { path: "/perfil",  component: () => import('../pages/PerfilPage.vue')}
 
 ];
 

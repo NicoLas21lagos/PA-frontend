@@ -4,23 +4,11 @@
     <form @submit.prevent="crearNota">
       <div class="mb-3">
         <label for="titulo" class="form-label">Título:</label>
-        <input
-          type="text"
-          v-model="nuevaNota.titulo"
-          class="form-control"
-          id="titulo"
-          required
-        />
+        <input type="text" v-model="nuevaNota.titulo" class="form-control" id="titulo" required />
       </div>
       <div class="mb-3">
         <label for="contenido" class="form-label">Contenido:</label>
-        <textarea
-          v-model="nuevaNota.contenido"
-          class="form-control"
-          id="contenido"
-          rows="3"
-          required
-        ></textarea>
+        <textarea v-model="nuevaNota.contenido" class="form-control" id="contenido" rows="3" required></textarea>
       </div>
       <button type="submit" class="btn btn-primary">Crear Nota</button>
     </form>
@@ -54,23 +42,12 @@
             <form @submit.prevent="actualizarNota">
               <div class="mb-3">
                 <label for="editTitulo" class="form-label">Título:</label>
-                <input
-                  type="text"
-                  v-model="notaEditando.titulo"
-                  class="form-control"
-                  id="editTitulo"
-                  required
-                />
+                <input type="text" v-model="notaEditando.titulo" class="form-control" id="editTitulo" required />
               </div>
               <div class="mb-3">
                 <label for="editContenido" class="form-label">Contenido:</label>
-                <textarea
-                  v-model="notaEditando.contenido"
-                  class="form-control"
-                  id="editContenido"
-                  rows="3"
-                  required
-                ></textarea>
+                <textarea v-model="notaEditando.contenido" class="form-control" id="editContenido" rows="3"
+                  required></textarea>
               </div>
               <button type="submit" class="btn btn-primary">Actualizar Nota</button>
             </form>
@@ -79,6 +56,13 @@
       </div>
     </div>
   </div>
+
+
+
+
+  <router-link
+    class="flex justify-center  bg-[#7747ff] hover:bg-violet-700 transition font-semibold rounded-lg text-base p-2 text-center   text-white"
+    to="/perfil">Perfil Usuario</router-link>
 </template>
 
 
