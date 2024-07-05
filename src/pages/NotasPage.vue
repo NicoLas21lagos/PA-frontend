@@ -34,15 +34,57 @@
         <div class="card-body">
           <h5 class="card-title">{{ nota.titulo }}</h5>
           <p class="card-text">{{ nota.contenido }}</p>
+          <button @click="abrirModal(nota)" class="btn btn-secondary">Editar</button>
           <button @click="eliminarNota(nota.id)" class="btn btn-danger">Eliminar</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal de edición -->
+    <div v-if="notaEditando" class="modal fade show d-block" tabindex="-1" role="dialog">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Editar Nota</h5>
+            <button type="button" class="close" @click="cerrarModal">
+              <span>&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form @submit.prevent="actualizarNota">
+              <div class="mb-3">
+                <label for="editTitulo" class="form-label">Título:</label>
+                <input
+                  type="text"
+                  v-model="notaEditando.titulo"
+                  class="form-control"
+                  id="editTitulo"
+                  required
+                />
+              </div>
+              <div class="mb-3">
+                <label for="editContenido" class="form-label">Contenido:</label>
+                <textarea
+                  v-model="notaEditando.contenido"
+                  class="form-control"
+                  id="editContenido"
+                  rows="3"
+                  required
+                ></textarea>
+              </div>
+              <button type="submit" class="btn btn-primary">Actualizar Nota</button>
+            </form>
+          </div>
         </div>
       </div>
     </div>
   </div>
 </template>
 
+
+
 <script>
-import { createNota, deleteNoteById, getNotasUsuario } from "@/services/service.js";
+import { createNota, deleteNoteById, getNotasUsuario, updateNota } from "@/services/service.js";
 
 export default {
   data() {
@@ -52,6 +94,7 @@ export default {
         titulo: "",
         contenido: "",
       },
+      notaEditando: null,
     };
   },
   mounted() {
@@ -99,6 +142,22 @@ export default {
       } catch (error) {
         console.error("Error al eliminar la nota", error);
         alert("Ocurrió un error al eliminar la nota");
+      }
+    },
+    abrirModal(nota) {
+      this.notaEditando = { ...nota };
+    },
+    cerrarModal() {
+      this.notaEditando = null;
+    },
+    async actualizarNota() {
+      try {
+        await updateNota(this.notaEditando.id, this.notaEditando);
+        this.cerrarModal();
+        await this.cargarNotasUsuario();
+      } catch (error) {
+        console.error("Error al actualizar la nota", error);
+        alert("Ocurrió un error al actualizar la nota");
       }
     },
   },

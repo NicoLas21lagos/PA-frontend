@@ -31,6 +31,18 @@ export const createNota = async (nota) => {
   }
 };
 
+//UPDATE
+
+export const updateNota = async (notaId, notaActualizada) => {
+  try {
+    const response = await axios.put(`${API_URL}/notas/${notaId}`, notaActualizada);
+    return response.data;
+  } catch (error) {
+    console.error("Error al actualizar la nota", error);
+    throw new Error("Error al actualizar la nota");
+  }
+}
+
 // DELETE
 export const deleteNoteById = async (noteId) => {
   try {
