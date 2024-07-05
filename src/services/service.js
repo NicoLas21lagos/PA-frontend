@@ -63,3 +63,13 @@ export const getNotasUsuario = async (userId) => {
   }
 };
 
+export const getNotasPublicas = async () => {
+  try {
+    const response = await axios.get(`${API_URL}/notas/publicas`);
+    return response.data;
+  } catch (error) {
+    console.error('Error al obtener las notas públicas:', error);
+    throw new Error('Error al obtener las notas públicas');
+  }
+};
+
