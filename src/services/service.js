@@ -17,6 +17,20 @@ export const getUsers = async () => {
 };
 
 
+
+export const postCreateUser = async (user) => {
+
+  try {
+    const response = await axios.post(`${API_URL}/users`, user);
+    return response.data;
+  } catch (error) {
+    console.error('There was an error creating the user!', error);
+    throw error;
+  }
+}
+
+
+
 // Notas
 
 
